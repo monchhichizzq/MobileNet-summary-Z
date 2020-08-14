@@ -12,4 +12,7 @@ Inverted residual:
 First, we increase the feature maps channels through $1 \times 1$ conv2d, then we use $3 \times 3$ separable_conv2d for feature extraction, finally we resize the feature map channels and get the feature maps
 
 <p align="center">
-    <img src="images/inverted_residual_1.jpg", width="640", height='1024'>
+    <img src="images/inverted_residual_1.jpg", width="640", height='320'>
+
+<p align="center">
+    <img src="images/inverted_residuals.png", width="640", height='320'>
