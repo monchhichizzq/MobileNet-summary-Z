@@ -7,7 +7,7 @@ MobileNet is a mobile classification network proposed by Google
 ## MobileNet V2
 在V2中，MobileNet应用了新的单元：Inverted residual with linear bottleneck，主要的改动是为Bottleneck添加了linear激活输出以及将残差网络的skip-connection结构转移到低维Bottleneck层。
 
-Inverted residual:
+###1. Inverted residual:
 
 First, we increase the feature maps channels through $1 \times 1$ conv2d, then we use $3 \times 3$ separable_conv2d for feature extraction, finally we resize the feature map channels and get the feature maps
 
@@ -16,3 +16,18 @@ First, we increase the feature maps channels through $1 \times 1$ conv2d, then w
 
 <p align="center">
     <img src="images/inverted_residuals.png", width="640", height='320'>
+
+
+###2. Linear bottlenecks
+
+In order to avoid the information loss caused by relu function, remove the relu6 function before elementwise sum in the residual block.
+
+为了避免Relu对特征的破坏，在residual block的Eltwise sum之前的那个 1*1 Conv 不再采用Relu6，而是直接线性输出，作者说这样可以避免Relu对特征的破坏同时保留更多的特征参数，提高模型准确率。
+
+###3. Model architecture
+
+<p align="center">
+    <img src="images/model.jpg", width="640", height='640'>
+
+<p align="center">
+    <img src="images/block.jpg", width="640", height='640'>
