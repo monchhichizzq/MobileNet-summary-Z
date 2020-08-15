@@ -1,0 +1,112 @@
++----------------------------+------------------------+----------------+----------+---------------+----------------+----------------+--------+
+|        MobilenetV2         |       layer name       | Neuron numbers | MACs (M) |   Parameters  |  Input shape   |  Output shape  | Kernel |
++----------------------------+------------------------+----------------+----------+---------------+----------------+----------------+--------+
+|          input_1           |       InputLayer       |     150528     |    -     |       -       |       -        |       -        |   -    |
+|           Conv1            |         Conv2D         |     401408     |  10.84   |      864      | (225, 225, 3)  | (112, 112, 32) | (3, 3) |
+|          bn_Conv1          |   BatchNormalization   |     401408     |   0.8    |      128      | (112, 112, 32) | (112, 112, 32) |   -    |
+|         block_conv         |    DepthwiseConv2D     |     401408     |   3.61   |      288      | (112, 112, 32) | (112, 112, 32) | (3, 3) |
+| expanded_conv_depthwise_BN |   BatchNormalization   |     401408     |   0.8    |      128      | (112, 112, 32) | (112, 112, 32) |   -    |
+|   expanded_conv_project    |         Conv2D         |     200704     |   6.42   |      512      | (112, 112, 32) | (112, 112, 16) | (1, 1) |
+|  expanded_conv_project_BN  |   BatchNormalization   |     200704     |   0.4    |       64      | (112, 112, 16) | (112, 112, 16) |   -    |
+|          block_1           |         Conv2D         |    1204224     |  19.27   |      1536     | (112, 112, 16) | (112, 112, 96) | (1, 1) |
+|     block_1_expand_BN      |   BatchNormalization   |    1204224     |   2.41   |      384      | (112, 112, 96) | (112, 112, 96) |   -    |
+|          block_1           |    DepthwiseConv2D     |     301056     |   2.71   |      864      | (113, 113, 96) |  (56, 56, 96)  | (3, 3) |
+|    block_1_depthwise_BN    |   BatchNormalization   |     301056     |   0.6    |      384      |  (56, 56, 96)  |  (56, 56, 96)  |   -    |
+|          block_1           |         Conv2D         |     75264      |   7.23   |      2304     |  (56, 56, 96)  |  (56, 56, 24)  | (1, 1) |
+|     block_1_project_BN     |   BatchNormalization   |     75264      |   0.15   |       96      |  (56, 56, 24)  |  (56, 56, 24)  |   -    |
+|          block_2           |         Conv2D         |     451584     |  10.84   |      3456     |  (56, 56, 24)  | (56, 56, 144)  | (1, 1) |
+|     block_2_expand_BN      |   BatchNormalization   |     451584     |   0.9    |      576      | (56, 56, 144)  | (56, 56, 144)  |   -    |
+|          block_2           |    DepthwiseConv2D     |     451584     |   4.06   |      1296     | (56, 56, 144)  | (56, 56, 144)  | (3, 3) |
+|    block_2_depthwise_BN    |   BatchNormalization   |     451584     |   0.9    |      576      | (56, 56, 144)  | (56, 56, 144)  |   -    |
+|          block_2           |         Conv2D         |     75264      |  10.84   |      3456     | (56, 56, 144)  |  (56, 56, 24)  | (1, 1) |
+|     block_2_project_BN     |   BatchNormalization   |     75264      |   0.15   |       96      |  (56, 56, 24)  |  (56, 56, 24)  |   -    |
+|          block_3           |         Conv2D         |     451584     |  10.84   |      3456     |  (56, 56, 24)  | (56, 56, 144)  | (1, 1) |
+|     block_3_expand_BN      |   BatchNormalization   |     451584     |   0.9    |      576      | (56, 56, 144)  | (56, 56, 144)  |   -    |
+|          block_3           |    DepthwiseConv2D     |     112896     |   1.02   |      1296     | (57, 57, 144)  | (28, 28, 144)  | (3, 3) |
+|    block_3_depthwise_BN    |   BatchNormalization   |     112896     |   0.23   |      576      | (28, 28, 144)  | (28, 28, 144)  |   -    |
+|          block_3           |         Conv2D         |     25088      |   3.61   |      4608     | (28, 28, 144)  |  (28, 28, 32)  | (1, 1) |
+|     block_3_project_BN     |   BatchNormalization   |     25088      |   0.05   |      128      |  (28, 28, 32)  |  (28, 28, 32)  |   -    |
+|          block_4           |         Conv2D         |     150528     |   4.82   |      6144     |  (28, 28, 32)  | (28, 28, 192)  | (1, 1) |
+|     block_4_expand_BN      |   BatchNormalization   |     150528     |   0.3    |      768      | (28, 28, 192)  | (28, 28, 192)  |   -    |
+|          block_4           |    DepthwiseConv2D     |     150528     |   1.35   |      1728     | (28, 28, 192)  | (28, 28, 192)  | (3, 3) |
+|    block_4_depthwise_BN    |   BatchNormalization   |     150528     |   0.3    |      768      | (28, 28, 192)  | (28, 28, 192)  |   -    |
+|          block_4           |         Conv2D         |     25088      |   4.82   |      6144     | (28, 28, 192)  |  (28, 28, 32)  | (1, 1) |
+|     block_4_project_BN     |   BatchNormalization   |     25088      |   0.05   |      128      |  (28, 28, 32)  |  (28, 28, 32)  |   -    |
+|          block_5           |         Conv2D         |     150528     |   4.82   |      6144     |  (28, 28, 32)  | (28, 28, 192)  | (1, 1) |
+|     block_5_expand_BN      |   BatchNormalization   |     150528     |   0.3    |      768      | (28, 28, 192)  | (28, 28, 192)  |   -    |
+|          block_5           |    DepthwiseConv2D     |     150528     |   1.35   |      1728     | (28, 28, 192)  | (28, 28, 192)  | (3, 3) |
+|    block_5_depthwise_BN    |   BatchNormalization   |     150528     |   0.3    |      768      | (28, 28, 192)  | (28, 28, 192)  |   -    |
+|          block_5           |         Conv2D         |     25088      |   4.82   |      6144     | (28, 28, 192)  |  (28, 28, 32)  | (1, 1) |
+|     block_5_project_BN     |   BatchNormalization   |     25088      |   0.05   |      128      |  (28, 28, 32)  |  (28, 28, 32)  |   -    |
+|          block_6           |         Conv2D         |     150528     |   4.82   |      6144     |  (28, 28, 32)  | (28, 28, 192)  | (1, 1) |
+|     block_6_expand_BN      |   BatchNormalization   |     150528     |   0.3    |      768      | (28, 28, 192)  | (28, 28, 192)  |   -    |
+|          block_6           |    DepthwiseConv2D     |     37632      |   0.34   |      1728     | (29, 29, 192)  | (14, 14, 192)  | (3, 3) |
+|    block_6_depthwise_BN    |   BatchNormalization   |     37632      |   0.08   |      768      | (14, 14, 192)  | (14, 14, 192)  |   -    |
+|          block_6           |         Conv2D         |     12544      |   2.41   |     12288     | (14, 14, 192)  |  (14, 14, 64)  | (1, 1) |
+|     block_6_project_BN     |   BatchNormalization   |     12544      |   0.03   |      256      |  (14, 14, 64)  |  (14, 14, 64)  |   -    |
+|          block_7           |         Conv2D         |     75264      |   4.82   |     24576     |  (14, 14, 64)  | (14, 14, 384)  | (1, 1) |
+|     block_7_expand_BN      |   BatchNormalization   |     75264      |   0.15   |      1536     | (14, 14, 384)  | (14, 14, 384)  |   -    |
+|          block_7           |    DepthwiseConv2D     |     75264      |   0.68   |      3456     | (14, 14, 384)  | (14, 14, 384)  | (3, 3) |
+|    block_7_depthwise_BN    |   BatchNormalization   |     75264      |   0.15   |      1536     | (14, 14, 384)  | (14, 14, 384)  |   -    |
+|          block_7           |         Conv2D         |     12544      |   4.82   |     24576     | (14, 14, 384)  |  (14, 14, 64)  | (1, 1) |
+|     block_7_project_BN     |   BatchNormalization   |     12544      |   0.03   |      256      |  (14, 14, 64)  |  (14, 14, 64)  |   -    |
+|          block_8           |         Conv2D         |     75264      |   4.82   |     24576     |  (14, 14, 64)  | (14, 14, 384)  | (1, 1) |
+|     block_8_expand_BN      |   BatchNormalization   |     75264      |   0.15   |      1536     | (14, 14, 384)  | (14, 14, 384)  |   -    |
+|          block_8           |    DepthwiseConv2D     |     75264      |   0.68   |      3456     | (14, 14, 384)  | (14, 14, 384)  | (3, 3) |
+|    block_8_depthwise_BN    |   BatchNormalization   |     75264      |   0.15   |      1536     | (14, 14, 384)  | (14, 14, 384)  |   -    |
+|          block_8           |         Conv2D         |     12544      |   4.82   |     24576     | (14, 14, 384)  |  (14, 14, 64)  | (1, 1) |
+|     block_8_project_BN     |   BatchNormalization   |     12544      |   0.03   |      256      |  (14, 14, 64)  |  (14, 14, 64)  |   -    |
+|          block_9           |         Conv2D         |     75264      |   4.82   |     24576     |  (14, 14, 64)  | (14, 14, 384)  | (1, 1) |
+|     block_9_expand_BN      |   BatchNormalization   |     75264      |   0.15   |      1536     | (14, 14, 384)  | (14, 14, 384)  |   -    |
+|          block_9           |    DepthwiseConv2D     |     75264      |   0.68   |      3456     | (14, 14, 384)  | (14, 14, 384)  | (3, 3) |
+|    block_9_depthwise_BN    |   BatchNormalization   |     75264      |   0.15   |      1536     | (14, 14, 384)  | (14, 14, 384)  |   -    |
+|          block_9           |         Conv2D         |     12544      |   4.82   |     24576     | (14, 14, 384)  |  (14, 14, 64)  | (1, 1) |
+|     block_9_project_BN     |   BatchNormalization   |     12544      |   0.03   |      256      |  (14, 14, 64)  |  (14, 14, 64)  |   -    |
+|          block_10          |         Conv2D         |     75264      |   4.82   |     24576     |  (14, 14, 64)  | (14, 14, 384)  | (1, 1) |
+|     block_10_expand_BN     |   BatchNormalization   |     75264      |   0.15   |      1536     | (14, 14, 384)  | (14, 14, 384)  |   -    |
+|          block_10          |    DepthwiseConv2D     |     75264      |   0.68   |      3456     | (14, 14, 384)  | (14, 14, 384)  | (3, 3) |
+|   block_10_depthwise_BN    |   BatchNormalization   |     75264      |   0.15   |      1536     | (14, 14, 384)  | (14, 14, 384)  |   -    |
+|          block_10          |         Conv2D         |     18816      |   7.23   |     36864     | (14, 14, 384)  |  (14, 14, 96)  | (1, 1) |
+|    block_10_project_BN     |   BatchNormalization   |     18816      |   0.04   |      384      |  (14, 14, 96)  |  (14, 14, 96)  |   -    |
+|          block_11          |         Conv2D         |     112896     |  10.84   |     55296     |  (14, 14, 96)  | (14, 14, 576)  | (1, 1) |
+|     block_11_expand_BN     |   BatchNormalization   |     112896     |   0.23   |      2304     | (14, 14, 576)  | (14, 14, 576)  |   -    |
+|          block_11          |    DepthwiseConv2D     |     112896     |   1.02   |      5184     | (14, 14, 576)  | (14, 14, 576)  | (3, 3) |
+|   block_11_depthwise_BN    |   BatchNormalization   |     112896     |   0.23   |      2304     | (14, 14, 576)  | (14, 14, 576)  |   -    |
+|          block_11          |         Conv2D         |     18816      |  10.84   |     55296     | (14, 14, 576)  |  (14, 14, 96)  | (1, 1) |
+|    block_11_project_BN     |   BatchNormalization   |     18816      |   0.04   |      384      |  (14, 14, 96)  |  (14, 14, 96)  |   -    |
+|          block_12          |         Conv2D         |     112896     |  10.84   |     55296     |  (14, 14, 96)  | (14, 14, 576)  | (1, 1) |
+|     block_12_expand_BN     |   BatchNormalization   |     112896     |   0.23   |      2304     | (14, 14, 576)  | (14, 14, 576)  |   -    |
+|          block_12          |    DepthwiseConv2D     |     112896     |   1.02   |      5184     | (14, 14, 576)  | (14, 14, 576)  | (3, 3) |
+|   block_12_depthwise_BN    |   BatchNormalization   |     112896     |   0.23   |      2304     | (14, 14, 576)  | (14, 14, 576)  |   -    |
+|          block_12          |         Conv2D         |     18816      |  10.84   |     55296     | (14, 14, 576)  |  (14, 14, 96)  | (1, 1) |
+|    block_12_project_BN     |   BatchNormalization   |     18816      |   0.04   |      384      |  (14, 14, 96)  |  (14, 14, 96)  |   -    |
+|          block_13          |         Conv2D         |     112896     |  10.84   |     55296     |  (14, 14, 96)  | (14, 14, 576)  | (1, 1) |
+|     block_13_expand_BN     |   BatchNormalization   |     112896     |   0.23   |      2304     | (14, 14, 576)  | (14, 14, 576)  |   -    |
+|          block_13          |    DepthwiseConv2D     |     28224      |   0.25   |      5184     | (15, 15, 576)  |  (7, 7, 576)   | (3, 3) |
+|   block_13_depthwise_BN    |   BatchNormalization   |     28224      |   0.06   |      2304     |  (7, 7, 576)   |  (7, 7, 576)   |   -    |
+|          block_13          |         Conv2D         |      7840      |   4.52   |     92160     |  (7, 7, 576)   |  (7, 7, 160)   | (1, 1) |
+|    block_13_project_BN     |   BatchNormalization   |      7840      |   0.02   |      640      |  (7, 7, 160)   |  (7, 7, 160)   |   -    |
+|          block_14          |         Conv2D         |     47040      |   7.53   |     153600    |  (7, 7, 160)   |  (7, 7, 960)   | (1, 1) |
+|     block_14_expand_BN     |   BatchNormalization   |     47040      |   0.09   |      3840     |  (7, 7, 960)   |  (7, 7, 960)   |   -    |
+|          block_14          |    DepthwiseConv2D     |     47040      |   0.42   |      8640     |  (7, 7, 960)   |  (7, 7, 960)   | (3, 3) |
+|   block_14_depthwise_BN    |   BatchNormalization   |     47040      |   0.09   |      3840     |  (7, 7, 960)   |  (7, 7, 960)   |   -    |
+|          block_14          |         Conv2D         |      7840      |   7.53   |     153600    |  (7, 7, 960)   |  (7, 7, 160)   | (1, 1) |
+|    block_14_project_BN     |   BatchNormalization   |      7840      |   0.02   |      640      |  (7, 7, 160)   |  (7, 7, 160)   |   -    |
+|          block_15          |         Conv2D         |     47040      |   7.53   |     153600    |  (7, 7, 160)   |  (7, 7, 960)   | (1, 1) |
+|     block_15_expand_BN     |   BatchNormalization   |     47040      |   0.09   |      3840     |  (7, 7, 960)   |  (7, 7, 960)   |   -    |
+|          block_15          |    DepthwiseConv2D     |     47040      |   0.42   |      8640     |  (7, 7, 960)   |  (7, 7, 960)   | (3, 3) |
+|   block_15_depthwise_BN    |   BatchNormalization   |     47040      |   0.09   |      3840     |  (7, 7, 960)   |  (7, 7, 960)   |   -    |
+|          block_15          |         Conv2D         |      7840      |   7.53   |     153600    |  (7, 7, 960)   |  (7, 7, 160)   | (1, 1) |
+|    block_15_project_BN     |   BatchNormalization   |      7840      |   0.02   |      640      |  (7, 7, 160)   |  (7, 7, 160)   |   -    |
+|          block_16          |         Conv2D         |     47040      |   7.53   |     153600    |  (7, 7, 160)   |  (7, 7, 960)   | (1, 1) |
+|     block_16_expand_BN     |   BatchNormalization   |     47040      |   0.09   |      3840     |  (7, 7, 960)   |  (7, 7, 960)   |   -    |
+|          block_16          |    DepthwiseConv2D     |     47040      |   0.42   |      8640     |  (7, 7, 960)   |  (7, 7, 960)   | (3, 3) |
+|   block_16_depthwise_BN    |   BatchNormalization   |     47040      |   0.09   |      3840     |  (7, 7, 960)   |  (7, 7, 960)   |   -    |
+|          block_16          |         Conv2D         |     15680      |  15.05   |     307200    |  (7, 7, 960)   |  (7, 7, 320)   | (1, 1) |
+|    block_16_project_BN     |   BatchNormalization   |     15680      |   0.03   |      1280     |  (7, 7, 320)   |  (7, 7, 320)   |   -    |
+|           Conv_1           |         Conv2D         |     62720      |  20.07   |     409600    |  (7, 7, 320)   |  (7, 7, 1280)  | (1, 1) |
+|         Conv_1_bn          |   BatchNormalization   |     62720      |   0.13   |      5120     |  (7, 7, 1280)  |  (7, 7, 1280)  |   -    |
+|  global_average_pooling2d  | GlobalAveragePooling2D |      1280      |   0.06   |       0       |  (7, 7, 1280)  |    (1280,)     |  7.0   |
+|        predictions         |         Dense          |      1280      |   1.28   |    1281000    |    (1280,)     |    (1000,)     |   -    |
+|           Total            |           -            |     6.83 M     | 314.19 M | 3.539/3.539 M |       -        |       -        |   -    |
++----------------------------+------------------------+----------------+----------+---------------+----------------+----------------+--------+
