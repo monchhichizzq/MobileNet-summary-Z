@@ -39,22 +39,22 @@ In order to avoid the information loss caused by relu function, remove the relu6
 
 ### 5. Operation numbers
 
-Normal convolution: \
+**Normal convolution:** \
 Input shape: $h_{in} \times w_{in} \times c_{in}$ \
-Kernel size: $h_{k} \times w_{k} \times c_{in} \times c_{out}$
-Output shape: $h_{out} \times w_{out} \times c_{out}$
-operations: $h_{k} \times w_{k} \times c_{in} \times c_{out} \times h_{out} \times w_{out}$
+Kernel size: $h_{k} \times w_{k} \times c_{in} \times c_{out}$ \
+Output shape: $h_{out} \times w_{out} \times c_{out}$ \
+operations: $h_{k} \times w_{k} \times c_{in} \times c_{out} \times h_{out} \times w_{out}$ \
 
-Depthwise convolution:
-Input shape: $h_{in} \times w_{in} \times c_{in}$
-Kernel size: $h_{k} \times w_{k} \times c_{in} $
-Output shape: $h_{out} \times w_{out} \times c_{in}$
-operations: $h_{k} \times w_{k} \times c_{in} \times h_{out} \times w_{out}$
+**Depthwise convolution:** \
+Input shape: $h_{in} \times w_{in} \times c_{in}$ \
+Kernel size: $h_{k} \times w_{k} \times c_{in} $ \
+Output shape: $h_{out} \times w_{out} \times c_{in}$ \
+operations: $h_{k} \times w_{k} \times c_{in} \times h_{out} \times w_{out}$ \
 
-Pointwise convolution:
-Input shape: $h_{in} \times w_{in} \times c_{in}$
-Kernel size: $1 \times 1 \times c_{in} \times c_{out}$
-Output shape: $h_{out} \times w_{out} \times c_{out}$
-operations: $1 \times 1 \times c_{in} \times c_{out} \times h_{out} \times w_{out}$
+**Pointwise convolution:**
+Input shape: $h_{in} \times w_{in} \times c_{in}$ \
+Kernel size: $1 \times 1 \times c_{in} \times c_{out}$ \
+Output shape: $h_{out} \times w_{out} \times c_{out}$ \
+operations: $1 \times 1 \times c_{in} \times c_{out} \times h_{out} \times w_{out}$ \
 
-Total operations: ($h_{k} \times w_{k} \times c_{in} \times h_{out} \times w_{out}$ +  $1 \times 1 \times c_{in} \times c_{out} \times h_{out} \times w_{out}$) $<$ $h_{k} \times w_{k} \times c_{in} \times c_{out} \times h_{out} \times w_{out}$
+**Total operations:** ($h_{k} \times w_{k} \times c_{in} \times h_{out} \times w_{out}$ +  $1 \times 1 \times c_{in} \times c_{out} \times h_{out} \times w_{out}$) $<$ $h_{k} \times w_{k} \times c_{in} \times c_{out} \times h_{out} \times w_{out}$
