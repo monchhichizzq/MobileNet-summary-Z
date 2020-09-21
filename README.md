@@ -39,7 +39,7 @@ In order to avoid the information loss caused by relu function, remove the relu6
 
 ### 5. Operation numbers
 
-Normal convolution: \\
+Normal convolution: \
 Input shape: $h_{in} \times w_{in} \times c_{in}$ \
 Kernel size: $h_{k} \times w_{k} \times c_{in} \times c_{out}$
 Output shape: $h_{out} \times w_{out} \times c_{out}$
