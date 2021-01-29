@@ -3,8 +3,6 @@
 # @FileName: tensorflow2NNProfiler.py
 # @Software: PyCharm
 
-""" Copyright (c) GrAI Matter Labs SAS 2020. All rights reserved. """
-
 import os
 import argparse
 import prettytable
